@@ -164,6 +164,8 @@
     - architecture: ppc64
 - izanami:
     - architecture: ppc64
+- kapista:
+    - architecture: ppc64
 - ookuninushi:
     - architecture: ppc64
 - susanoo:
