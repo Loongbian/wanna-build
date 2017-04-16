@@ -73,7 +73,6 @@ def main():
         print "need non-empty Sources and Packages"
         return
     okpkgs = check_source(oklist, src, open(sys.argv[3], "w"))
-    print okpkgs
     for arch in sys.argv[2].split(" "):
         check_binary(okpkgs, replarch(arch, bin), open(replarch(arch, [sys.argv[4]])[0], "w"))
 
