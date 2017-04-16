@@ -14,9 +14,9 @@ ARCHS_jessie="amd64 arm64 armel armhf i386 mips mipsel powerpc ppc64el s390x"
 ARCHS_jessie_security="$ARCHS_jessie"
 ARCHS_jessie_kfreebsd="kfreebsd-amd64 kfreebsd-i386"
 ARCHS_jessie_kfreebsd_security="$ARCHS_jessie_kfreebsd"
-ARCHS_stretch="amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x"
+ARCHS_stretch="all amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x"
 ARCHS_stretch_security="$ARCHS_stretch"
-ARCHS_sid="$ARCHS_stretch all kfreebsd-amd64 kfreebsd-i386 hurd-i386 powerpc"
+ARCHS_sid="$ARCHS_stretch kfreebsd-amd64 kfreebsd-i386 hurd-i386 powerpc"
 ARCHS_exp="$ARCHS_sid"
 
 # Creates a working environment within the corresponding archive
