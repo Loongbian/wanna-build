@@ -46,6 +46,9 @@ main_sync() {
         PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/archive/${SUITE}/{main,contrib}/debian-installer/binary-%ARCH%/Packages${EXT}"
         trigger_wb_update_for_overlay "$SUITE" "`get_architectures $SUITE`" "$SOURCES_BASE" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
 
+        # Drop architecture qualification (e.g. jessie-kfreebsd)
+        SUITE="${SUITE%%-*}"
+
         if [ -f "${ARCHIVE_BASE}/archive/${SUITE}-backports/main/source/Sources${EXT}" ]; then
             SOURCES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports/{main,contrib}/source/Sources${EXT}"
             PACKAGES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports/{main,contrib}/binary-%ARCH%/Packages${EXT}"
