@@ -17,7 +17,7 @@ then
     args=""
 fi
 
-echo "$(date): $trigger_name | $args" >> /srv/wanna-build/db/signal.log
+echo "$(date): $trigger_name | $args" >> /srv/wanna-build/logs/signal.log
 
 if [ ! -z "$args" ]
 then

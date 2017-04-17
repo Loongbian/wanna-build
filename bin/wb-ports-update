@@ -12,7 +12,7 @@ CONFFILE="/srv/wanna-build/etc/wb-ports-update.conf"
 CACHEDIR="/srv/wanna-build/tmp/archive/debian-ports"
 
 # Log directory
-LOGDIR="/srv/wanna-build/db"
+LOGDIR="/srv/wanna-build/logs"
 
 # There should be no need to edit anything below this point, unless there
 # are problems.

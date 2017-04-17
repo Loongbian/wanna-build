@@ -23,7 +23,7 @@ fi
 
 . /srv/wanna-build/triggers/common
 
-exec >> /srv/wanna-build/db/merge.$ARCHIVE.log 2>&1
+exec >> /srv/wanna-build/logs/merge.$ARCHIVE.log 2>&1
 
 if [ -f /srv/wanna-build/NO-TRIGGERS -a -z "$2" ]
 then
