@@ -48,7 +48,7 @@ main() {
     SOURCES="${SOURCES} ${ARCHIVE_BASE}/debian-security-buildd-dists/buildd-${SUITE}/updates/{main,contrib}/source/Sources.gz"
     PACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/updates/{main,contrib}/binary-%ARCH%/Packages.gz"
     PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-security-buildd-dists/buildd-${SUITE}/updates/{main,contrib}/binary-%ARCH%/Packages.gz"
-    trigger_wb_update "${SUITE}" "`get_architectures ${SUITE}-security`" "$SOURCES" "$PACKAGES" "${SUITE}-security"
+    trigger_wb_update "${SUITE}" "`get_architectures security ${SUITE}-security`" "$SOURCES" "$PACKAGES" "${SUITE}-security"
 
     cleanup
 }

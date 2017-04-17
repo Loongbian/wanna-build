@@ -8,16 +8,6 @@ ARCHIVE_MAIN="/srv/wanna-build/tmp/archive/debian"
 ARCHIVE_BASE="/srv/wanna-build/tmp/archive/${ARCHIVE}"
 PAS_BASE="/srv/buildd.debian.org/web/quinn-diff"
 LOCKFILE="${ARCHIVE_BASE}/lock"
-ARCHS_wheezy="amd64 armel armhf i386"
-ARCHS_wheezy_security="amd64 armel armhf i386"
-ARCHS_jessie="amd64 arm64 armel armhf i386 mips mipsel powerpc ppc64el s390x"
-ARCHS_jessie_security="$ARCHS_jessie"
-ARCHS_jessie_kfreebsd="kfreebsd-amd64 kfreebsd-i386"
-ARCHS_jessie_kfreebsd_security="$ARCHS_jessie_kfreebsd"
-ARCHS_stretch="all amd64 arm64 armel armhf i386 mips mips64el mipsel ppc64el s390x"
-ARCHS_stretch_security="$ARCHS_stretch"
-ARCHS_sid="$ARCHS_stretch kfreebsd-amd64 kfreebsd-i386 hurd-i386 powerpc"
-ARCHS_exp="$ARCHS_sid"
 
 # Creates a working environment within the corresponding archive
 # directory and jumps there.
@@ -28,22 +18,16 @@ ensure_workdir() {
 
 # Puts the list of architectures for a given suite onto stdout.
 get_architectures() {
-    local SUITE="$1"
+    local ARCHIVE="$1"
+    local SUITE="$2"
+    local ARCHS
 
-    if [ "$SUITE" = "wheezy" -o "$SUITE" = "oldstable" ]; then echo $ARCHS_wheezy
-    elif [ "$SUITE" = "wheezy-security" -o "$SUITE" = "oldstable-security" ]; then echo $ARCHS_wheezy_security
-    elif [ "$SUITE" = "jessie" -o "$SUITE" = "stable" ]; then echo $ARCHS_jessie
-    elif [ "$SUITE" = "jessie-security" -o "$SUITE" = "stable-security" ]; then echo $ARCHS_jessie_security
-    elif [ "$SUITE" = "jessie-kfreebsd" -o "$SUITE" = "stable-kfreebsd" ]; then echo $ARCHS_jessie_kfreebsd
-    elif [ "$SUITE" = "jessie-kfreebsd-security" -o "$SUITE" = "stable-kfreebsd-security" ]; then echo $ARCHS_jessie_kfreebsd_security
-    elif [ "$SUITE" = "stretch" -o "$SUITE" = "testing" ]; then echo $ARCHS_stretch
-    elif [ "$SUITE" = "stretch-security" -o "$SUITE" = "testing-security" ]; then echo $ARCHS_stretch_security
-    elif [ "$SUITE" = "unstable" -o "$SUITE" = "sid" ]; then echo $ARCHS_sid
-    elif [ "$SUITE" = "experimental" ]; then echo $ARCHS_exp
-    else
-        echo "Unknown suite encountered, aborting." >&2
-        exit 1
+    ARCHS=$(wanna-build --archive="$ARCHIVE" --distribution-architectures | grep "$SUITE: " | cut -d':' -f 2)
+    if [ -z "$ARCHS" ]; then
+         echo "Unknown suite encountered, aborting." >&2
+         exit 1
     fi
+    echo $ARCHS
 }
 
 # Get the compression format used in a given suite
