@@ -187,16 +187,7 @@ my @wannabuildoptions = (
           if $list_order !~ /^[PSpsncbCWT]+$/;
     },
     'message|m=s'  => \$fail_reason,
-    'database|b=s' => sub {
-        # If they didn't specify an arch, try to get it from database name which
-        # is in the form of $arch/build-db
-        # This is for backwards compatibity with older versions that didn't
-        # specify the arch yet.
-        warn "database is deprecated, please use 'arch' instead.\n";
-        $_[1] =~ m#^([^/]+)#;
-        $arch ||= $1;
-    },
-    'arch|A=s'     => sub { $arch //= $_[1]; },
+    'arch|A=s'     => \$arch,
     'user|U=s'     => \$user,
     'min-age|a=f'       => \$list_min_age,
     'max-age=f'         => \$list_max_age,
