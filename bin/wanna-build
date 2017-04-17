@@ -431,10 +431,15 @@ if (isin($op_mode, qw<forget-user merge-v3 import>) && @conf::admin_users && !is
 }
 if (!($commands->{$op_mode}) || !($commands->{$op_mode}->{'noarch'})) {
     die "need an architecture" unless $arch;
-    my $rows = $dbh->selectall_hashref('SELECT distribution as d from distribution_architectures where architecture=? and distribution=?', [qw<d>], undef, ($arch, $distribution//"sid")) if ($distribution//"") ne 'any';
-    $rows = $dbh->selectall_hashref('SELECT distribution as d from distribution_architectures where architecture=?', [qw<d>], undef, ($arch,)) unless $rows;
-    die "architecture ($arch) does not exist (at least not for ".($distribution//"sid").")" if !keys %$rows and $distribution//"sid" ne 'any';
-    die "architecture ($arch) does not exist" if !keys %$rows;
+    if (($distribution//"sid") ne 'any') {
+        die "architecture ($arch) does not exist (at least not for ".($distribution//"sid").")" if !$distribution_architectures{$distribution//"sid"}{$arch};
+    } else {
+        my $found = 0;
+        foreach (keys %distribution_architectures) {
+            $found = 1 if $distribution_architectures{$_}{$arch};
+        }
+        die "architecture ($arch) does not exist" if !$found;
+    }
 }
 
 my $orig_distribution = $distribution;
