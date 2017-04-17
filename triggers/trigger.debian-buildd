@@ -5,7 +5,7 @@ ARCHIVE="debian"
 
 . /srv/wanna-build/triggers/common
 
-exec >> /srv/wanna-build/db/merge.$ARCHIVE.log 2>&1
+exec >> /srv/wanna-build/db/merge.$ARCHIVE-buildd.log 2>&1
 
 if [ -f /srv/wanna-build/NO-TRIGGERS -a -z "$1" ]
 then
