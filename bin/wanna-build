@@ -69,7 +69,7 @@ our ($verbose, $mail_logs, $list_order, $list_state,
     $short_date, $list_min_age, $list_max_age, @curr_time,
     $build_priority, %new_vers, $binNMUver, %merge_srcvers, %merge_binsrc,
     $printformat, $ownprintformat, $privmode, $extra_depends, $extra_conflicts,
-    %distributions, %distribution_aliases, $actions,
+    %distributions, %distribution_aliases, %distribution_architectures, $actions,
     $sshwrapper,
     );
 our $Pas = '/srv/buildd.debian.org/etc/packages-arch-specific/Packages-arch-specific';
@@ -324,6 +324,15 @@ foreach my $name (keys %$rows) {
 	$distributions{$name}->{'suppress_successful_logs'} = $rows->{$name}->{'suppress_successful_logs'} if $rows->{$name}->{'suppress_successful_logs'};
 	$distributions{$name}->{'mail_logs'} = $rows->{$name}->{'mail_logs'} if $rows->{$name}->{'mail_logs'};
 	$distributions{$name}->{'archive'} = $rows->{$name}->{'archive'} if $rows->{$name}->{'archive'};
+}
+
+$q = 'SELECT distribution, architecture, vancouvered FROM distribution_architectures';
+$rows = $dbh->selectall_hashref($q, [qw<distribution architecture>]);
+foreach my $name (keys %$rows) {
+    foreach my $arch (keys %{$rows->{$name}}) {
+        $distribution_architectures{$name}{$arch} = {};
+        $distribution_architectures{$name}{$arch}->{'vancouvered'} = 1 if $rows->{$name}->{$arch}->{'vancouvered'};
+    }
 }
 
 $q = 'SELECT alias, distribution FROM distribution_aliases';
