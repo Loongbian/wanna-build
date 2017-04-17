@@ -305,7 +305,7 @@ $dbh->{pg_server_prepare} = 0;
 
 $dbh->begin_work or die $dbh->errstr;
 
-my $q = 'SELECT distribution, public, auto_dep_wait, build_dep_resolver, build_dep_alternatives, suppress_successful_logs, archive, mail_logs FROM distributions';
+my $q = 'SELECT distribution, public, auto_dep_wait, build_dep_resolver, build_dep_alternatives, suppress_successful_logs, mail_logs FROM distributions';
 my $rows = $dbh->selectall_hashref($q, 'distribution');
 foreach my $name (keys %$rows) {
 	$distributions{$name} = {};
