@@ -2,8 +2,9 @@
 
 . /srv/wanna-build/triggers/common
 
-STATS_DISTS="sid wheezy squeeze lenny"
-ALL_ARCHES=$(echo $ARCHS_lenny $ARCHS_squeeze $ARCHS_wheezy $ARCHS_unstable \
+STATS_DISTS="sid stretch jessie"
+ALL_ARCHES=$(wanna-build --archive=debian --distribution-architectures \
+             | sed -e 's/^.*: //' \
              | tr ' ' '\n' | sort -u)
 
 #

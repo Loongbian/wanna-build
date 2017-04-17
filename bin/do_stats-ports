@@ -1,7 +1,9 @@
 #!/bin/bash
 
 STATS_DISTS="sid";
-ALL_ARCHES="alpha hppa m68k powerpcspe ppc64 sh4 sparc64 x32"
+ALL_ARCHES=$(wanna-build --archive=debian-ports --distribution-architectures \
+             | sed -e 's/^.*: //' \
+             | tr ' ' '\n' | sort -u)
 
 #
 # Only update stats if it's been at least 20h since the last time.
