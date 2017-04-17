@@ -811,7 +811,6 @@ CREATE TABLE distributions (
     auto_dep_wait boolean DEFAULT true,
     build_dep_alternatives boolean DEFAULT false NOT NULL,
     build_dep_resolver character varying,
-    archive character varying,
     suppress_successful_logs boolean DEFAULT false NOT NULL,
     mail_logs character varying
 );
@@ -4625,6 +4624,7 @@ ALTER TABLE distribution_aliases OWNER TO wbadm;
 CREATE TABLE distribution_architectures (
     distribution character varying NOT NULL,
     architecture character varying NOT NULL,
+    archive character varying,
     vancouvered boolean DEFAULT false
 );
 

@@ -323,14 +323,14 @@ foreach my $name (keys %$rows) {
 	$distributions{$name}->{'build_dep_alternatives'} = 1 if ($rows->{$name}->{'build_dep_alternatives'});
 	$distributions{$name}->{'suppress_successful_logs'} = $rows->{$name}->{'suppress_successful_logs'} if $rows->{$name}->{'suppress_successful_logs'};
 	$distributions{$name}->{'mail_logs'} = $rows->{$name}->{'mail_logs'} if $rows->{$name}->{'mail_logs'};
-	$distributions{$name}->{'archive'} = $rows->{$name}->{'archive'} if $rows->{$name}->{'archive'};
 }
 
-$q = 'SELECT distribution, architecture, vancouvered FROM distribution_architectures';
+$q = 'SELECT distribution, architecture, archive, vancouvered FROM distribution_architectures';
 $rows = $dbh->selectall_hashref($q, [qw<distribution architecture>]);
 foreach my $name (keys %$rows) {
     foreach my $arch (keys %{$rows->{$name}}) {
         $distribution_architectures{$name}{$arch} = {};
+        $distribution_architectures{$name}{$arch}->{'archive'} = $rows->{$name}->{$arch}->{'archive'} if $rows->{$name}->{$arch}->{'archive'};
         $distribution_architectures{$name}{$arch}->{'vancouvered'} = 1 if $rows->{$name}->{$arch}->{'vancouvered'};
     }
 }
@@ -845,7 +845,7 @@ sub add_one_building {
                 print  "    - extra-changelog: $pkg->{'binary_nmu_changelog'}\n" if $pkg->{'binary_nmu_changelog'} && $pkg->{'binary_nmu_version'};
                 print  "    - extra-depends: $pkg->{'extra_depends'}\n" if $pkg->{'extra_depends'};
                 print  "    - extra-conflicts: $pkg->{'extra_conflicts'}\n" if $pkg->{'extra_conflicts'};
-                print  "    - archive: $distributions{$s->{'dist'}}->{'archive'}\n" if $distributions{$s->{'dist'}}->{'archive'};
+                print  "    - archive: $distribution_architectures{$s->{'dist'}}{$s->{'arch'}}->{'archive'}\n" if $distribution_architectures{$s->{'dist'}}{$s->{'arch'}}->{'archive'}; 
                 print  "    - build_dep_resolver: $distributions{$s->{'dist'}}->{'build_dep_resolver'}\n" if $distributions{$s->{'dist'}}->{'build_dep_resolver'};
                 print  "    - suppress_successful_logs: $distributions{$s->{'dist'}}->{'suppress_successful_logs'}\n" if $distributions{$s->{'dist'}}->{'suppress_successful_logs'};
                 print  "    - mail_logs: $distributions{$s->{'dist'}}->{'mail_logs'}\n" if $distributions{$s->{'dist'}}->{'mail_logs'};
