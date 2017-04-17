@@ -65,7 +65,7 @@ our ($verbose, $mail_logs, $list_order, $list_state,
     $curr_date, $op_mode, $user, $real_user, $distribution,
     $fail_reason, $opt_override, $import_from, $export_to,
     %prioval, %sectval,
-    $info_all_dists, $arch,
+    $info_all_dists, $arch, $archive,
     $short_date, $list_min_age, $list_max_age, @curr_time,
     $build_priority, %new_vers, $binNMUver, %merge_srcvers, %merge_binsrc,
     $printformat, $ownprintformat, $privmode, $extra_depends, $extra_conflicts,
@@ -188,8 +188,9 @@ my @wannabuildoptions = (
     },
     'message|m=s'  => \$fail_reason,
     'arch|A=s'     => \$arch,
+    'archive|a=s'  => \$archive,
     'user|U=s'     => \$user,
-    'min-age|a=f'       => \$list_min_age,
+    'min-age=f'         => \$list_min_age,
     'max-age=f'         => \$list_max_age,
     'format=s'          => \$printformat,
     'own-format=s'      => \$ownprintformat,
@@ -316,8 +317,11 @@ foreach my $name (keys %$rows) {
 	$distributions{$name}->{'mail_logs'} = $rows->{$name}->{'mail_logs'} if $rows->{$name}->{'mail_logs'};
 }
 
-$q = 'SELECT distribution, architecture, archive, vancouvered FROM distribution_architectures';
-$rows = $dbh->selectall_hashref($q, [qw<distribution architecture>]);
+if (defined($archive)) {
+    $rows = $dbh->selectall_hashref('SELECT distribution, architecture, archive, vancouvered FROM distribution_architectures WHERE archive = ?', [qw<distribution architecture>], undef, ($archive,));
+} else {
+    $rows = $dbh->selectall_hashref('SELECT distribution, architecture, archive, vancouvered FROM distribution_architectures', [qw<distribution architecture>]);
+}
 foreach my $name (keys %$rows) {
     foreach my $arch (keys %{$rows->{$name}}) {
         $distribution_architectures{$name}{$arch} = {};
