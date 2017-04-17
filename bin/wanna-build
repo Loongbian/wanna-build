@@ -2187,18 +2187,21 @@ sub get_all_source_info {
 }
 
 sub show_distribution_architectures {
-        my $args = shift;
-	my $q = 'SELECT distribution, spacecat_all(architecture) AS architectures '.
-		'FROM distribution_architectures '.
-		'GROUP BY distribution';
-	my $rows = $dbh->selectall_hashref($q, 'distribution');
-        if ($args->{suite}) {
-            print $rows->{$args->{'suite'}}->{'architectures'}."\n";
-        } else {
-	    foreach my $name (keys %$rows) {
-		print $name.': '.$rows->{$name}->{'architectures'}."\n";
-	    }
+    my $args = shift;
+    if (defined($args->{suite})) {
+        foreach my $architecture (keys %{$distribution_architectures{$args->{suite}}}) {
+            print $architecture." ";
         }
+        print "\n";
+    } else {
+        foreach my $distribution (keys %distribution_architectures) {
+            print $distribution.':';
+            foreach my $architecture (keys %{$distribution_architectures{$distribution}}) {
+                print " ".$architecture;
+            }
+            print "\n";
+        }
+    }
 }
 
 sub show_distribution_aliases {
