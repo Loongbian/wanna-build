@@ -1,7 +1,7 @@
 .da-backup.trace
 trigger.curlrc
 tmp
-db
+logs
 status
 etc/*password
 stats
