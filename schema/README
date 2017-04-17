@@ -65,9 +65,9 @@ Basic configuration
 You may want to tell to Wanna-Build which distributions and architectures
 are supported:
 
-INSERT INTO distributions(distribution,build_dep_resolver,archive) VALUES ('sid','','');
+INSERT INTO distributions(distribution,build_dep_resolver) VALUES ('sid','apt');
 INSERT INTO architectures(architecture) VALUES ('amd64'),('i386');
-INSERT INTO distribution_architectures(distribution,architecture) VALUES ('sid','amd64'),('sid','i386');
+INSERT INTO distribution_architectures(distribution,architecture,archive) VALUES ('sid','amd64','debian'),('sid','i386','debian');
 INSERT INTO locks(distribution,architecture) VALUES ('sid','amd64'),('sid','i386');
 
 And (optionally) set up distributions aliases:
