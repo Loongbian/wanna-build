@@ -20,7 +20,7 @@ if (( $last + $interval < $now )); then
 	for a in $ALL_ARCHES; do
 	    echo Last Updated: `date -u` > /srv/buildd.debian.org/web/stats/$a.txt
 	    for d in $STATS_DISTS; do
-		/srv/wanna-build/bin/wanna-build-statistics --database=$a/build-db --dist=$d >> /srv/buildd.debian.org/web/stats/$a.txt
+		/srv/wanna-build/bin/wanna-build-statistics --arch=$a --dist=$d >> /srv/buildd.debian.org/web/stats/$a.txt
 	    done
 	done
         echo "stats ended: `date`"
