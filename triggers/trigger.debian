@@ -39,23 +39,23 @@ main_sync() {
         PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}-proposed-updates/{main,contrib}/debian-installer/binary-%ARCH%/Packages${EXT}"
         NFPACKAGES="${ARCHIVE_BASE}/archive/${SUITE}-proposed-updates/non-free/binary-%ARCH%/Packages${EXT}"
         NFPACKAGES="${NFPACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}-proposed-updates/non-free/debian-installer/binary-%ARCH%/Packages${EXT}"
-        /srv/wanna-build/bin/filter-nonfree /srv/wanna-build/etc/non-free-include-list "`get_architectures ftp-master $SUITE`" Sources.${SUITE}.non-free Packages.${SUITE}.%ARCH%.non-free ${NFSOURCES} . ${NFPACKAGES} || true
+        /srv/wanna-build/bin/filter-nonfree /srv/wanna-build/etc/non-free-include-list "`get_architectures $SUITE`" Sources.${SUITE}.non-free Packages.${SUITE}.%ARCH%.non-free ${NFSOURCES} . ${NFPACKAGES} || true
         # Now add the overlay suite as above.
         SOURCES_BASE="${ARCHIVE_BASE}/archive/${SUITE}/{main,contrib}/source/Sources${EXT}"
         PACKAGES_BASE="${ARCHIVE_BASE}/archive/${SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
         PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/archive/${SUITE}/{main,contrib}/debian-installer/binary-%ARCH%/Packages${EXT}"
-        trigger_wb_update_for_overlay "$SUITE" "`get_architectures ftp-master $SUITE`" "$SOURCES_BASE" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
+        trigger_wb_update_for_overlay "$SUITE" "`get_architectures $SUITE`" "$SOURCES_BASE" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
 
         if [ -f "${ARCHIVE_BASE}/archive/${SUITE}-backports/main/source/Sources${EXT}" ]; then
             SOURCES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports/{main,contrib}/source/Sources${EXT}"
             PACKAGES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports/{main,contrib}/binary-%ARCH%/Packages${EXT}"
-            trigger_wb_update_with_secondary "${SUITE}-backports" "`get_architectures ftp-master ${SUITE}-backports`" "$PACKAGES_BASE" "$SOURCES_BP" "$PACKAGES_BP" "${SUITE}-backports"
+            trigger_wb_update_with_secondary "${SUITE}-backports" "`get_architectures ${SUITE}-backports`" "$PACKAGES_BASE" "$SOURCES_BP" "$PACKAGES_BP" "${SUITE}-backports"
         fi
 
         if [ -f "${ARCHIVE_BASE}/archive/${SUITE}-backports-sloppy/main/source/Sources${EXT}" ]; then
             SOURCES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports-sloppy/{main,contrib}/source/Sources${EXT}"
             PACKAGES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports{-sloppy,}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
-            trigger_wb_update_with_secondary "${SUITE}-backports-sloppy" "`get_architectures ftp-master ${SUITE}-backports-sloppy`" "$PACKAGES_BASE" "$SOURCES_BP" "$PACKAGES_BP" "${SUITE}-backports-sloppy"
+            trigger_wb_update_with_secondary "${SUITE}-backports-sloppy" "`get_architectures ${SUITE}-backports-sloppy`" "$PACKAGES_BASE" "$SOURCES_BP" "$PACKAGES_BP" "${SUITE}-backports-sloppy"
         fi
     done
 
@@ -71,18 +71,18 @@ main_sync() {
         PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
         NFPACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/non-free/binary-%ARCH%/Packages${EXT}"
         NFPACKAGES="${NFPACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}/non-free/debian-installer/binary-%ARCH%/Packages${EXT}"
-        /srv/wanna-build/bin/filter-nonfree /srv/wanna-build/etc/non-free-include-list "`get_architectures ftp-master $SUITE`" Sources.${SUITE}.non-free Packages.${SUITE}.%ARCH%.non-free ${NFSOURCES} . ${NFPACKAGES} || true
+        /srv/wanna-build/bin/filter-nonfree /srv/wanna-build/etc/non-free-include-list "`get_architectures $SUITE`" Sources.${SUITE}.non-free Packages.${SUITE}.%ARCH%.non-free ${NFSOURCES} . ${NFPACKAGES} || true
 
         if [ "$SUITE" = "sid" ]
         then
             # sid is not an overlay.
-            trigger_wb_update "${SUITE}" "`get_architectures ftp-master ${SUITE}`" "$SOURCES" "$PACKAGES"
+            trigger_wb_update "${SUITE}" "`get_architectures ${SUITE}`" "$SOURCES" "$PACKAGES"
         else
             BASE_SUITE=sid
             PACKAGES_BASE="${ARCHIVE_MAIN}/archive/${BASE_SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
             PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_MAIN}/archive/${BASE_SUITE}/{main,contrib}/debian-installer/binary-%ARCH%/Packages${EXT}"
             PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-${BASE_SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
-            trigger_wb_update_with_secondary "$SUITE" "`get_architectures ftp-master $SUITE`" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
+            trigger_wb_update_with_secondary "$SUITE" "`get_architectures $SUITE`" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
         fi
     done
 

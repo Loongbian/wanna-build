@@ -18,8 +18,7 @@ ensure_workdir() {
 
 # Puts the list of architectures for a given suite onto stdout.
 get_architectures() {
-    local ARCHIVE="$1"
-    local SUITE="$2"
+    local SUITE="$1"
     local ARCHS
 
     ARCHS=$(wanna-build --archive="$ARCHIVE" --distribution-architectures | grep "$SUITE: " | cut -d':' -f 2)

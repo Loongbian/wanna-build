@@ -33,7 +33,7 @@ main() {
     PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/${suite}/main/debian-installer/binary-%ARCH%/Packages.xz"
     PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${suite}/{main,contrib}/binary-%ARCH%/Packages.xz"
     PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${suite}/main/debian-installer/binary-%ARCH%/Packages.xz"
-    trigger_wb_update "$suite" "`get_architectures ftp-master $suite`" "$SOURCES" "$PACKAGES"
+    trigger_wb_update "$suite" "`get_architectures $suite`" "$SOURCES" "$PACKAGES"
 
     # Handle experimental as an overlay suite.
     suite=experimental
@@ -48,7 +48,7 @@ main() {
     PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_MAIN}/archive/${base_suite}/main/debian-installer/binary-%ARCH%/Packages.xz"
     PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${base_suite}/{main,contrib}/binary-%ARCH%/Packages.xz"
     PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${base_suite}/main/debian-installer/binary-%ARCH%/Packages.xz"
-    trigger_wb_update_with_secondary "$suite" "`get_architectures ftp-master $suite`" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
+    trigger_wb_update_with_secondary "$suite" "`get_architectures $suite`" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
 
     cleanup
 }
