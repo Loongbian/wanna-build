@@ -31,8 +31,8 @@ main() {
     SOURCES="${SOURCES} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-${SUITE}/main/source/Sources.xz"
     PACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/main/binary-%ARCH%/Packages.gz"
     PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
-    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/buildd-${SUITE}/main/binary-%ARCH%/Packages.gz"
-    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/buildd-${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
     trigger_wb_update "${SUITE}" "`get_architectures ${SUITE}`" "$SOURCES" "$PACKAGES"
 
     # Handle experimental as a secondary SUITE.
@@ -40,10 +40,16 @@ main() {
     BASE_SUITE="sid"
     SOURCES="${ARCHIVE_MAIN}/archive/${SUITE}/main/source/Sources.xz"
     SOURCES="${SOURCES} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-${SUITE}/main/source/Sources.xz"
-    PACKAGES_BASE="${ARCHIVE_MAIN}/archive/${BASE_SUITE}/main/binary-%ARCH%/Packages.gz"
-    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/archive/${BASE_SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
-    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/buildd-${BASE_SUITE}/main/binary-%ARCH%/Packages.gz"
-    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/buildd-${BASE_SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+
+    PACKAGES_BASE="${ARCHIVE_BASE}/archive/${SUITE_BASE}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/archive/${SUITE_BASE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE_BASE}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE_BASE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+
     trigger_wb_update_with_secondary "$SUITE" "`get_architectures $SUITE`" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
 
     cleanup
