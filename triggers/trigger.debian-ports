@@ -1,0 +1,54 @@
+#!/bin/bash
+# vim:set et ts=4 sw=4 ft=sh ai:
+
+ARCHIVE="debian-ports"
+
+. /srv/wanna-build/triggers/common
+
+exec >> /srv/wanna-build/logs/merge.$ARCHIVE.log 2>&1
+
+if [ -f /srv/wanna-build/NO-TRIGGERS -a -z "$1" ]
+then
+    echo Trigger for $ARCHIVE skipped due to NO-TRIGGERS, aborting. >&2
+    exit 0
+fi
+
+echo "`date`: Running trigger for $ARCHIVE ..."
+
+main() {
+    set -eE
+    trap cleanup ERR TERM HUP INT QUIT
+
+    ensure_lock
+    ensure_workdir
+
+    # Fetch the most recent Packages and Sources files.
+    sync.sh $ARCHIVE nolock
+
+    # Handle unstable as a normal SUITE.
+    SUITE="sid"
+    SOURCES="${ARCHIVE_MAIN}/archive/${SUITE}/main/source/Sources.xz"
+    SOURCES="${SOURCES} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-${SUITE}/main/source/Sources.xz"
+    PACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/buildd-${SUITE}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/buildd-${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    trigger_wb_update "${SUITE}" "`get_architectures ${SUITE}`" "$SOURCES" "$PACKAGES"
+
+    # Handle experimental as a secondary SUITE.
+    SUITE="experimental"
+    BASE_SUITE="sid"
+    SOURCES="${ARCHIVE_MAIN}/archive/${SUITE}/main/source/Sources.xz"
+    SOURCES="${SOURCES} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-${SUITE}/main/source/Sources.xz"
+    PACKAGES_BASE="${ARCHIVE_MAIN}/archive/${BASE_SUITE}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/archive/${BASE_SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/buildd-${BASE_SUITE}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/buildd-${BASE_SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    trigger_wb_update_with_secondary "$SUITE" "`get_architectures $SUITE`" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
+
+    cleanup
+}
+
+main
+exit 0
+

@@ -11,8 +11,6 @@ PATH=/bin:/usr/bin:/usr/local/bin:/srv/wanna-build/bin:/srv/buildd.debian.org/bi
 
 */5 * * * *	/srv/wanna-build/bin/process-triggers
 
-5,25,45 * * * * /srv/wanna-build/bin/wb-ports-update
-
 43 * * * *       /srv/buildd.debian.org/bin/wb-export
 
 3  0 * * *       make -sC /srv/wanna-build/etc/cron check

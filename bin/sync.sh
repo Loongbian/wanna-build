@@ -59,6 +59,12 @@ debian)
 	$RSYNC --password-file "$PASSWORD_FILE" $MIRROR_OPTIONS $USER@ftp-master.debian.org::debian/indices/Maintainers /srv/buildd.debian.org/etc/Maintainers
 	$RSYNC --password-file "$PASSWORD_FILE" $MIRROR_OPTIONS $USER@ftp-master.debian.org::debian/indices/Uploaders /srv/buildd.debian.org/etc/Uploaders
 	;;
+debian-ports)
+	USER=buildd.debian.org
+	BUILDD_QUEUE_OPTIONS="--exclude=*.bz2 $RSYNC_OPTIONS"
+	$RSYNC --password-file "$PASSWORD_FILE" $MIRROR_OPTIONS $USER@ports-master.debian.org::debian-ports/dists/ "$TARGET/archive"
+	$RSYNC --password-file "$PASSWORD_BASE/$1-buildd.rsync-password" $BUILDD_QUEUE_OPTIONS $USER@ports-master.debian.org::debian-ports-buildd-dists/ "$TARGET/debian-ports-buildd-dists/"
+	;;
 debian-security)
 	chmod 0700 "$TARGET"
 	USER=buildd.debian.org
