@@ -41,7 +41,7 @@ main() {
     SOURCES="${ARCHIVE_BASE}/archive/${suite}/{main,contrib}/source/Sources.xz"
     SOURCES="${SOURCES} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${suite}/{main,contrib}/source/Sources.xz"
     PACKAGES="${ARCHIVE_BASE}/archive/${suite}/{main,contrib}/binary-%ARCH%/Packages.xz"
-    PACKAGES="${ARCHIVE_BASE}/archive/${suite}/{main,contrib}/debian-installer/binary-%ARCH%/Packages.xz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/${suite}/{main,contrib}/debian-installer/binary-%ARCH%/Packages.xz"
     PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${suite}/{main,contrib}/binary-%ARCH%/Packages.xz"
     PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${suite}/{main,contrib}/debian-installer/binary-%ARCH%/Packages.xz"
 
