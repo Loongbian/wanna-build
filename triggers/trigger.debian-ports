@@ -25,32 +25,29 @@ main() {
     # Fetch the most recent Packages and Sources files.
     sync.sh $ARCHIVE nolock
 
-    # Handle unstable as a normal SUITE.
-    SUITE="sid"
-    SOURCES="${ARCHIVE_MAIN}/archive/${SUITE}/main/source/Sources.xz"
-    SOURCES="${SOURCES} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-${SUITE}/main/source/Sources.xz"
-    PACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/main/binary-%ARCH%/Packages.gz"
-    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
-    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE}/main/binary-%ARCH%/Packages.gz"
-    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
-    trigger_wb_update "${SUITE}" "`get_architectures ${SUITE}`" "$SOURCES" "$PACKAGES"
+    # Handle unstable as a normal suite, merged with unreleased.
+    SOURCES="${ARCHIVE_MAIN}/archive/sid/main/source/Sources.xz"
+    SOURCES="${SOURCES} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-sid/main/source/Sources.xz"
+    PACKAGES="${ARCHIVE_BASE}/archive/{sid,unreleased}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/{sid,unreleased}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/sid/main/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/sid/main/debian-installer/binary-%ARCH%/Packages.gz"
+    trigger_wb_update "sid" "`get_architectures sid`" "$SOURCES" "$PACKAGES"
 
-    # Handle experimental as a secondary SUITE.
-    SUITE="experimental"
-    BASE_SUITE="sid"
-    SOURCES="${ARCHIVE_MAIN}/archive/${SUITE}/main/source/Sources.xz"
-    SOURCES="${SOURCES} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-${SUITE}/main/source/Sources.xz"
-    PACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/main/binary-%ARCH%/Packages.gz"
-    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
-    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE}/main/binary-%ARCH%/Packages.gz"
-    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    # Handle experimental as a secondary suite, with sid+unreleased for the base packages.
+    SOURCES="${ARCHIVE_MAIN}/archive/experimental/main/source/Sources.xz"
+    SOURCES="${SOURCES} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-experimental/main/source/Sources.xz"
+    PACKAGES="${ARCHIVE_BASE}/archive/experimental/main/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/experimental/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/experimental/main/binary-%ARCH%/Packages.gz"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-ports-buildd-dists/experimental/main/debian-installer/binary-%ARCH%/Packages.gz"
 
-    PACKAGES_BASE="${ARCHIVE_BASE}/archive/${BASE_SUITE}/main/binary-%ARCH%/Packages.gz"
-    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/archive/${BASE_SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
-    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${BASE_SUITE}/main/binary-%ARCH%/Packages.gz"
-    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/${BASE_SUITE}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${ARCHIVE_BASE}/archive/{sid,unreleased}/main/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/archive/{sid,unreleased}/main/debian-installer/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/sid/main/binary-%ARCH%/Packages.gz"
+    PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-ports-buildd-dists/sid/main/debian-installer/binary-%ARCH%/Packages.gz"
 
-    trigger_wb_update_with_secondary "$SUITE" "`get_architectures $SUITE`" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
+    trigger_wb_update_with_secondary "experimental" "`get_architectures experimental`" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
 
     cleanup
 }
