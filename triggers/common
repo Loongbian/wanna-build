@@ -162,7 +162,12 @@ trigger_wb_update_with_secondary() {
 
     for ARCH in ${ARCHS}; do
         keep-latest ${ARCH} $(eval echo $(echo ${PACKAGES} | sed -e 's/%ARCH%/${ARCH}/g')) > Packages.${SUITE}.${ARCH}
-        ucat Packages.${SUITE}.${ARCH} $(eval echo $(echo ${PACKAGES_BASE} | sed -e 's/%ARCH%/${ARCH}/g')) > Packages.${SUITE}.${ARCH}-all
+        # Hack: for kfreebsd-* the base suite for jessie-backports and jessie-backports sloppy is jessie-kfreebsd (and not jessie)
+        if echo ${SUITE}.${ARCH} | egrep -q 'jessie-backports(|-sloppy)\.kfreebsd-(amd64|i386)' ; then
+            ucat Packages.${SUITE}.${ARCH} $(eval echo $(echo ${PACKAGES_BASE} | sed -e 's/%ARCH%/${ARCH}/g;s/jessie/&-kfreebsd/g')) > Packages.${SUITE}.${ARCH}-all
+        else
+            ucat Packages.${SUITE}.${ARCH} $(eval echo $(echo ${PACKAGES_BASE} | sed -e 's/%ARCH%/${ARCH}/g')) > Packages.${SUITE}.${ARCH}-all
+        fi
     done
     [ -f Packages.${SUITE}.i386.non-free ] && PNF="Packages.${SUITE}.%ARCH%.non-free" || PNF=""
     [ -f Sources.${SUITE}.non-free ] && SNF="Sources.${SUITE}.non-free" || SNF=""
