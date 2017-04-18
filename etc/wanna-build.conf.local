@@ -5,9 +5,6 @@
 # m68k.debian.org.
 #
 
-# directory for the databases, lock files and log files
-$basedir = "/srv/wanna-build/db";
-
 # PostgreSQL service for wanna-build
 $pg_service = "wanna-build";
 

@@ -59,7 +59,6 @@ mkdir -p $testdir
 # This is a fake configuration file to make sure we do not interfere with a
 # possibly installed wanna-build instance
 cat > $testdir/wanna-build.conf <<__END__
-\$basedir = "$testdir/db";
 \$ignore_epochs = 0;
 \$db_maint = "wb-team\@dontsend.buildd.debian.org";
 \$notforus_maint = "notforus\@dontsend.buildd.debian.org";
