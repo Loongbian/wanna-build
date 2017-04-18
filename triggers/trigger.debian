@@ -69,6 +69,7 @@ main_sync() {
         PACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
         PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}/{main,contrib}/debian-installer/binary-%ARCH%/Packages${EXT}"
         PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
+        PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${SUITE}/{main,contrib}/debian-installer/binary-%ARCH%/Packages${EXT}"
         NFPACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/non-free/binary-%ARCH%/Packages${EXT}"
         NFPACKAGES="${NFPACKAGES} ${ARCHIVE_BASE}/archive/${SUITE}/non-free/debian-installer/binary-%ARCH%/Packages${EXT}"
         /srv/wanna-build/bin/filter-nonfree /srv/wanna-build/etc/non-free-include-list "`get_architectures $SUITE`" Sources.${SUITE}.non-free Packages.${SUITE}.%ARCH%.non-free ${NFSOURCES} . ${NFPACKAGES} || true
@@ -79,9 +80,10 @@ main_sync() {
             trigger_wb_update "${SUITE}" "`get_architectures ${SUITE}`" "$SOURCES" "$PACKAGES"
         else
             BASE_SUITE=sid
-            PACKAGES_BASE="${ARCHIVE_MAIN}/archive/${BASE_SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
-            PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_MAIN}/archive/${BASE_SUITE}/{main,contrib}/debian-installer/binary-%ARCH%/Packages${EXT}"
-            PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_MAIN}/debian-buildd-dists/buildd-${BASE_SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
+            PACKAGES_BASE="${ARCHIVE_BASE}/archive/${BASE_SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
+            PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/archive/${BASE_SUITE}/{main,contrib}/debian-installer/binary-%ARCH%/Packages${EXT}"
+            PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${BASE_SUITE}/{main,contrib}/binary-%ARCH%/Packages${EXT}"
+            PACKAGES_BASE="${PACKAGES_BASE} ${ARCHIVE_BASE}/debian-buildd-dists/buildd-${BASE_SUITE}/{main,contrib}/debian-installer/binary-%ARCH%/Packages${EXT}"
             trigger_wb_update_with_secondary "$SUITE" "`get_architectures $SUITE`" "$PACKAGES_BASE" "$SOURCES" "$PACKAGES"
         fi
     done
