@@ -837,7 +837,7 @@ sub add_one_building {
                 printf "    - suite: %s\n", $s->{'dist'};
                 printf "    - arch: %s\n", $s->{'arch'};
                 print  "    - binNMU: $pkg->{'binary_nmu_version'}\n" if $pkg->{'binary_nmu_version'};
-                print  "    - extra-changelog: $pkg->{'binary_nmu_changelog'}\n" if $pkg->{'binary_nmu_changelog'} && $pkg->{'binary_nmu_version'};
+                print  "    - extra-changelog: \"$pkg->{'binary_nmu_changelog'}\"\n" if $pkg->{'binary_nmu_changelog'} && $pkg->{'binary_nmu_version'};
                 print  "    - extra-depends: $pkg->{'extra_depends'}\n" if $pkg->{'extra_depends'};
                 print  "    - extra-conflicts: $pkg->{'extra_conflicts'}\n" if $pkg->{'extra_conflicts'};
                 print  "    - archive: $distribution_architectures{$s->{'dist'}}{$s->{'arch'}}->{'archive'}\n" if $distribution_architectures{$s->{'dist'}}{$s->{'arch'}}->{'archive'}; 
