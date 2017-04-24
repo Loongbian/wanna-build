@@ -43,7 +43,6 @@ use Getopt::Long qw (GetOptionsFromString :config gnu_getopt );
 use lib '/srv/wanna-build/lib';
 #use lib 'lib';
 use WannaBuild;
-use YAML::Tiny;
 use YAML::XS;
 use Data::Dumper;
 use Hash::Merge qw ( merge );
@@ -233,7 +232,7 @@ if ($ARGV[0] && $ARGV[0] eq '--ssh-wrapper') {
     die ("no SSH_ORIGINAL_COMMAND") unless exists $ENV{'SSH_ORIGINAL_COMMAND'};
     GetOptions(@sshwrapperoptions) or usage();
     $#ARGV == 0 or die("need exactly one host name");
-    my $hosts = YAML::Tiny->read( '/srv/wanna-build/etc/buildd/buildd.yaml' )->[0];
+    my $hosts = YAML::XS::LoadFile( '/srv/wanna-build/etc/buildd/buildd.yaml' );
     my ($hostyaml, $defaultyaml);
     foreach my $host (@$hosts) {
         $hostyaml = $host->{$ARGV[0]} if (keys %$host)[0] eq $ARGV[0];
@@ -410,7 +409,7 @@ foreach my $file (@files) {
 	if ($verbose >= 2) { print "Trying to read $file ($cfile) ...\n"; }
 	next unless -f $cfile;
 	if ($verbose >= 2) { print "Read $file ($cfile) ...\n"; }
-	my $m = YAML::Tiny->read( $cfile )->[0];
+	my $m = YAML::XS::LoadFile( $cfile );
 	$yamlmap = merge($m, $yamlmap);
 }
 if (not $yamlmap) {
