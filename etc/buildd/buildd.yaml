@@ -187,6 +187,10 @@
     - architecture: sh4
 - vs95:
     - architecture: sh4
+- vs96:
+    - architecture: sh4
+- vs97:
+    - architecture: sh4
 
 - andi:
     - architecture: sparc64
