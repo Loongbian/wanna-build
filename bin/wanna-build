@@ -1669,32 +1669,6 @@ sub build_deplist {
 	return $result;
 }
 
-
-sub remove_archqual {
-    if ($_[0]->isa('Dpkg::Deps::Simple')) {
-        if (defined $_[0]->{'archqual'}) {
-            if (grep { $_ eq $_[0]->{'archqual'} } ('any', 'native')) {
-                undef $_[0]->{'archqual'};
-            } else {
-                return "invalid-architecture-qualifier-$_[0]->{'archqual'}";
-            }
-        }
-    } else {
-        for my $dep ($_[0]->get_deps()) {
-            remove_archqual($dep);
-        }
-    }
-}
-
-sub filterarch {
-    return "" unless $_[0];
-    my $deps = Dpkg::Deps::deps_parse($_[0], ("reduce_arch" => 1, "host_arch" => $_[1], "build_dep" => 1));
-    # It is possible that a package has an empty list on some architectures, see bug#756720.
-    return "" unless $deps;
-    remove_archqual($deps);
-    return $deps->output();
-}
-
 sub merge_deps {
     return $_[0] ? ($_[1] ? "$_[0], $_[1]" : $_[0]) : $_[1];
 }
@@ -1907,7 +1881,6 @@ sub call_dose_builddebcheck {
 	    $t = &merge_deps($t, $srcs->{$key}{'dep-arch'} || $srcs->{$key}{'depends-arch'});
 	}
 	$t = &merge_deps($t, $pkg->{'extra_depends'});
-	$t = &filterarch($t, $args->{'arch'});
 	print $SOURCES "Build-Depends: $t\n" if $t;
 
 	my $u = $srcs->{$key}{'conf'} || $srcs->{$key}{'conflicts'};
@@ -1917,7 +1890,6 @@ sub call_dose_builddebcheck {
 	    $u = &merge_deps($u, $srcs->{$key}{'conf-arch'} || $srcs->{$key}{'conf-arch'});
 	}
 	$u = &merge_deps($u, $pkg->{'extra_conflicts'});
-	$u = &filterarch($u, $args->{'arch'});
 	print $SOURCES "Build-Conflicts: $u\n" if $u;
 	print $SOURCES "Architecture: all\n";
 	print $SOURCES "\n";
