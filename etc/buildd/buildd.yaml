@@ -128,17 +128,7 @@
 
 - ara5:
     - architecture: m68k
-- elgar:
-    - architecture: m68k
-- garkin:
-    - architecture: m68k
 - mama:
-    - architecture: m68k
-- kirby:
-    - architecture: m68k
-- pacman:
-    - architecture: m68k
-- pikachu:
     - architecture: m68k
 - vs90:
     - architecture: m68k
@@ -147,8 +137,6 @@
 - vs92:
     - architecture: m68k
 - vs93:
-    - architecture: m68k
-- wario:
     - architecture: m68k
 
 - atlantis:
