@@ -43,6 +43,7 @@ use Getopt::Long qw (GetOptionsFromString :config gnu_getopt );
 use lib '/srv/wanna-build/lib';
 #use lib 'lib';
 use WannaBuild;
+use YAML::Tiny;
 use YAML::XS;
 use Data::Dumper;
 use Hash::Merge qw ( merge );
@@ -843,7 +844,7 @@ sub add_one_building {
                 push @buildinfo, {'build_dep_resolver' => $distributions{$s->{'dist'}}->{'build_dep_resolver'}} if $distributions{$s->{'dist'}}->{'build_dep_resolver'};
                 push @buildinfo, {'suppress_successful_logs' => $distributions{$s->{'dist'}}->{'suppress_successful_logs'}} if $distributions{$s->{'dist'}}->{'suppress_successful_logs'};
                 push @buildinfo, {'mail_logs' => $distributions{$s->{'dist'}}->{'mail_logs'}} if $distributions{$s->{'dist'}}->{'mail_logs'};
-                print YAML::XS::Dump[{$s->{'name'} => [@buildinfo]}]
+                print YAML::Tiny::Dump[{$s->{'name'} => [@buildinfo]}];
             }
 		change_state( \$pkg, 'Building' );
 		$pkg->{'package'} = $s->{'name'};
