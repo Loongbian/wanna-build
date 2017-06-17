@@ -32,6 +32,7 @@ get_architectures() {
 # Get the compression format used in a given suite
 get_index_extension() {
     local SUITE="$1"
+    if [ "$SUITE" = "buster" ]; then echo ".xz"
     if [ "$SUITE" = "stretch" ]; then echo ".xz"
     elif [ "$SUITE" = "unstable" -o "$SUITE" = "sid" ]; then echo ".xz"
     elif [ "$SUITE" = "experimental" ]; then echo ".xz"

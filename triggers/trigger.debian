@@ -2,7 +2,7 @@
 # vim:set et ts=4 sw=4 ft=sh ai:
 
 ARCHIVE="debian"
-SUITES="wheezy jessie jessie-kfreebsd stretch"
+SUITES="wheezy jessie jessie-kfreebsd stretch buster"
 # Please note that SUITES_FAST_AUTOBUILD does not pull proposed-updates
 # because there was no need for that yet.
 SUITES_FAST_AUTOBUILD="sid experimental"
