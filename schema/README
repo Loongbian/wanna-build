@@ -50,7 +50,7 @@ $ psql -d wannadb -f main-tables.sql
 Architecture specific material
 ==============================
 
-0) $ cd /org/wanna-build/schema/
+0) $ cd /srv/wanna-build/schema/
 1) Edit arch-tables.sh and set ARCHS as you wish.
 2) ./arches-tables.sh
 3) $ psql -d wannadb -f arches-tables.sql

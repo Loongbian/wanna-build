@@ -1,5 +1,5 @@
 # Never change wbadm's crontab with `crontab -e`. Instead, edit
-# /org/wanna-build/etc/cron/crontab, and run `make` in that directory (or
+# /srv/wanna-build/etc/cron/crontab, and run `make` in that directory (or
 # install that file by hand). Also, please `git commit` any
 # non-temporary changes you make.
 
