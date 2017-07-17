@@ -143,8 +143,6 @@
     - architecture: powerpcspe
 - cb30:
     - architecture: powerpcspe
-- discovery:
-    - architecture: powerpcspe
 
 - amaterasu:
     - architecture: ppc64
