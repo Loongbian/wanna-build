@@ -18,6 +18,8 @@
     - architecture: arm64 armhf
 - arm-conova-01:
     - architecture: arm64 armhf
+- arm-conova-02:
+    - architecture: arm64 armhf
 - mozart:
     - architecture: hurd-i386
 - bach:
