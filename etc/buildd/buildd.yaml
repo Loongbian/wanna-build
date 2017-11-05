@@ -82,8 +82,6 @@
     - architecture: armhf armel
 - hoiby:
     - architecture: armhf armel
-- hildegard:
-    - architecture: armhf armel
 - zandonai:
     - architecture: s390x
 - zani:
