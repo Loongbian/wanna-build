@@ -118,6 +118,9 @@
 - mx3210:
     - architecture: hppa
 
+- lenz:
+    - architecture: ia64
+
 - ara5:
     - architecture: m68k
 - mama:
