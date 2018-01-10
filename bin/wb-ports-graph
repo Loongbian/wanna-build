@@ -35,7 +35,7 @@ my $date=`date -u "+%m/%d/%Y %T"`;
 chop($date);
 print "$date";
 
-my @archs = qw(alpha hppa m68k powerpcspe ppc64 sh4 sparc64 x32);
+my @archs = qw(alpha hppa ia64 m68k powerpcspe ppc64 sh4 sparc64 x32);
 my $arch;
 
 foreach $arch (@archs) {
