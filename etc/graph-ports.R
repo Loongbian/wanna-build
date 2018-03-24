@@ -1,9 +1,9 @@
-arch <- c("alpha", "hppa", "ia64", "m68k", "powerpcspe", "ppc64", "sh4", "sparc64", "x32")
-palette(c("yellow", "violet", "springgreen4", "blue", "red", "green", "black", "orange", "turquoise", "violetred2"))
+arch <- c("alpha", "hppa", "ia64", "m68k", "powerpcspe", "ppc64", "riscv64", "sh4", "sparc64", "x32")
+palette(c("yellow", "violet", "springgreen4", "blue", "red", "green", "thistle4", "black", "orange", "turquoise"))
 
 readdata <- function (file,start) {
 	t <- read.table(file,row.names=1,header=FALSE,
-	sep=",",col.names=c("date","alpha","at","hppa","ht","ia64","it","m68k","m6t","powerpcspe","pot","ppc64","p64","sh4","sht","sparc64","spt","x32","xt"))
+	sep=",",col.names=c("date","alpha","at","hppa","ht","ia64","it","m68k","m6t","powerpcspe","pot","ppc64","p64","rv64","rt","sh4","sht","sparc64","spt","x32","xt"))
 	ts(as.matrix(data.frame(
 	t[1]/t[2]*100, #alpha
 	t[3]/t[4]*100, #hppa
@@ -11,9 +11,10 @@ readdata <- function (file,start) {
 	t[7]/t[8]*100, #m68k
 	t[9]/t[10]*100, #powerpcspe
 	t[11]/t[12]*100, #ppc64
-	t[13]/t[14]*100, #sh4
-	t[15]/t[16]*100, #sparc64
-	t[17]/t[18]*100 #x32
+	t[13]/t[14]*100, #riscv64
+	t[15]/t[16]*100, #sh4
+	t[17]/t[18]*100, #sparc64
+	t[19]/t[20]*100 #x32
 	)),c(2009,start),frequency=365.25)
 }
 
