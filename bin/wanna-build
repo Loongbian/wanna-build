@@ -61,6 +61,8 @@ if ( defined $Dpkg::Version::VERSION ) {
 
 use Dpkg::Deps; # TODO: same
 
+$Dpkg::DATADIR=$conf::dpkg_datadir if defined $conf::dpkg_datadir;
+
 our ($verbose, $mail_logs, $list_order, $list_state,
     $curr_date, $op_mode, $user, $real_user, $distribution,
     $fail_reason, $opt_override, $import_from, $export_to,
@@ -1781,6 +1783,8 @@ sub wb_dose_builddebcheck {
 
     push @doseoptions, "--deb-emulate-sbuild" unless defined $builddepalt;
     push @doseoptions, "--deb-native-arch=$architecture";
+    push @doseoptions, "--deb-cputable=$conf::dpkg_datadir/cputable" if defined $conf::dpkg_datadir;
+    push @doseoptions, "--deb-tupletable=$conf::dpkg_datadir/tupletable" if defined $conf::dpkg_datadir;
     push @doseoptions, (@$packagefiles, $sourcesfile);
 
     print "calling: dose-builddebcheck @doseoptions\n";
