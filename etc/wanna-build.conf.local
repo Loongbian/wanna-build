@@ -30,6 +30,9 @@ $buildd_domain = "buildd.debian.org";
 # buildd architecture to build arch:all packages
 $all_buildd_arch = "amd64";
 
+# dpkg data directory
+$dpkg_datadir = "/srv/wanna-build/etc/dpkg";
+
 @admin_users = qw(wbadm);
 
 # don't remove this, Perl needs it:
