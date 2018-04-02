@@ -30,6 +30,8 @@
     - architecture: hurd-i386
 - mahler:
     - architecture: hurd-i386
+- kamp:
+    - architecture: kfreebsd-amd64 kfreebsd-i386
 - mips-aql-01:
     - architecture: mips
 - mips-aql-02:
