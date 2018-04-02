@@ -596,7 +596,6 @@ sub add_packages {
 	    my $suite = $p[-2] if scalar @p > 1;
 	    my $arch = $p[-3] if scalar @p > 2;
 	    # ignore suite, arch for the moment unless arch=all
-	    print Dumper $package, $suite, $arch;
 	} else {
             $package =~ s,^.*/,,; # strip path
 	    $package =~ s/\.(dsc|diff\.gz|tar\.gz|deb)$//; # strip extension
