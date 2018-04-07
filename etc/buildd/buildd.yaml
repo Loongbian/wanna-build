@@ -109,6 +109,8 @@
     - architecture: hppa
 - mx3210:
     - architecture: hppa
+- sibaris:
+    - architecture: hppa
 
 - lenz:
     - architecture: ia64
