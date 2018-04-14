@@ -170,6 +170,26 @@
     - architecture: riscv64
 - rv-mit-08:
     - architecture: riscv64
+- rv-mit-09:
+    - architecture: riscv64
+- rv-mit-10:
+    - architecture: riscv64
+- rv-mit-11:
+    - architecture: riscv64
+- rv-mit-12:
+    - architecture: riscv64
+- rv-mit-13:
+    - architecture: riscv64
+- rv-mit-14:
+    - architecture: riscv64
+- rv-mit-15:
+    - architecture: riscv64
+- rv-mit-16:
+    - architecture: riscv64
+- rv-mit-17:
+    - architecture: riscv64
+- rv-mit-18:
+    - architecture: riscv64
 
 - hiei:
     - architecture: sh4
