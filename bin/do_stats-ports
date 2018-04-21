@@ -1,10 +1,5 @@
 #!/bin/bash
 
-STATS_DISTS="sid";
-ALL_ARCHES=$(wanna-build --archive=debian-ports --distribution-architectures \
-             | sed -e 's/^.*: //' \
-             | tr ' ' '\n' | sort -u)
-
 #
 # Only update stats if it's been at least 20h since the last time.
 #
@@ -16,12 +11,6 @@ if (( $last + $interval < $now )); then
 	/srv/wanna-build/bin/wb-ports-graph >> /srv/wanna-build/etc/graph-ports-data
 	/srv/wanna-build/bin/wb-ports-graph -p >> /srv/wanna-build/etc/graph2-ports-data
 	R --slave --vanilla < /srv/wanna-build/etc/graph-ports.R
-	for a in $ALL_ARCHES; do
-	    echo Last Updated: `date -u` > /srv/buildd.debian.org/web/stats/$a.txt
-	    for d in $STATS_DISTS; do
-		/srv/wanna-build/bin/wanna-build-statistics --arch=$a --dist=$d >> /srv/buildd.debian.org/web/stats/$a.txt
-	    done
-	done
         echo "stats ended: `date`"
 fi
 
