@@ -132,6 +132,10 @@
     - architecture: powerpcspe
 - cb30:
     - architecture: powerpcspe
+- turris01:
+    - architecture: powerpcspe
+- turris02:
+    - architecture: powerpcspe
 - pathfinder:
     - architecture: powerpcspe
 
