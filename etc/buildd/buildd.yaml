@@ -207,6 +207,10 @@
     - architecture: sh4
 - mutsu:
     - architecture: sh4
+- sh4-do-01:
+    - architecture: sh4
+- sh4-do-02:
+    - architecture: sh4
 - tirpitz:
     - architecture: sh4
 - vs94:
