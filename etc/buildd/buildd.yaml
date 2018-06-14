@@ -119,6 +119,10 @@
     - architecture: m68k
 - mama:
     - architecture: m68k
+- m68k-do-01:
+    - architecture: m68k
+- m68k-do-02:
+    - architecture: m68k
 - vs90:
     - architecture: m68k
 - vs91:
