@@ -237,3 +237,7 @@
     - architecture: x32
 - vs76:
     - architecture: x32
+- x32-do-01:
+    - architecture: x32
+- x32-do-02:
+    - architecture: x32
