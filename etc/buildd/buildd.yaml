@@ -140,6 +140,10 @@
     - architecture: powerpcspe
 - cb30:
     - architecture: powerpcspe
+- powerpcspe-gandi-01:
+    - architecture: powerpcspe
+- powerpcspe-gandi-02:
+    - architecture: powerpcspe
 - turris01:
     - architecture: powerpcspe
 - turris02:
