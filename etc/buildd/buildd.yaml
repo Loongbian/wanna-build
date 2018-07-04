@@ -153,14 +153,15 @@
     - architecture: ppc64
 - izanami:
     - architecture: ppc64
-- kapitsa:
-    - architecture: ppc64
-- ookuninushi:
-    - architecture: ppc64
 - susanoo:
     - architecture: ppc64
 - tsukuyomi:
     - architecture: ppc64
+
+- kapitsa:
+    - architecture: ppc64 powerpc
+- ookuninushi:
+    - architecture: ppc64 powerpc
 
 - rv-aurel32-01:
     - architecture: riscv64
