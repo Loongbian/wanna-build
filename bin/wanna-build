@@ -946,7 +946,7 @@ sub set_one_binnmu {
                 return;
         }
 
-	if ($state ne 'Installed') {
+	if ($state ne 'Installed' && !$opt_override) {
 		print "${name}_$version: not installed; can't register for binNMU.\n";
 		return;
 	}
