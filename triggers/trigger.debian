@@ -48,7 +48,10 @@ main_sync() {
 
         if [ -f "${ARCHIVE_BASE}/archive/${SUITE}-backports/main/source/Sources${EXT}" ]; then
             SOURCES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports/{main,contrib}/source/Sources${EXT}"
+            NFSOURCES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports/non-free/source/Sources${EXT}"
             PACKAGES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports/{main,contrib}/binary-%ARCH%/Packages${EXT}"
+            NFPACKAGES_BP="${ARCHIVE_BASE}/archive/${SUITE}-backports/non-free/binary-%ARCH%/Packages${EXT}"
+            /srv/wanna-build/bin/filter-nonfree /srv/wanna-build/etc/non-free-include-list "`get_architectures $SUITE`" "Sources.${SUITE}-backports.non-free" "Packages.${SUITE}-backports.%ARCH%.non-free" ${NFSOURCES_BP} . ${NFPACKAGES_BP} || true
             trigger_wb_update_with_secondary "${SUITE}-backports" "`get_architectures ${SUITE}-backports`" "$PACKAGES_BASE" "$SOURCES_BP" "$PACKAGES_BP" "${SUITE}-backports"
         fi
 
