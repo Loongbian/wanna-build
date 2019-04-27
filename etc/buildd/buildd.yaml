@@ -106,6 +106,8 @@
 - sibaris:
     - architecture: hppa
 
+- iridium:
+    - architecture: ia64
 - lenz:
     - architecture: ia64
 - titanium:
