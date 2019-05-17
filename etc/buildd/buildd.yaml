@@ -98,6 +98,8 @@
     - architecture: alpha
 - electro:
     - architecture: alpha
+- tsunami:
+    - architecture: alpha
 
 - hpviz:
     - architecture: hppa
