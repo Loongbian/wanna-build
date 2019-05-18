@@ -209,6 +209,10 @@
     - architecture: riscv64
 - rv-mit-18:
     - architecture: riscv64
+- rv-mullvad-01:
+    - architecture: riscv64
+- rv-mullvad-02:
+    - architecture: riscv64
 - rv-rr44-01:
     - architecture: riscv64
 
