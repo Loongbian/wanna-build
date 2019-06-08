@@ -20,18 +20,6 @@
     - architecture: arm64 armhf
 - arm-conova-02:
     - architecture: arm64 armhf
-- mozart:
-    - architecture: hurd-i386
-- bach:
-    - architecture: hurd-i386
-- ironforge:
-    - architecture: hurd-i386
-- rossini:
-    - architecture: hurd-i386
-- mahler:
-    - architecture: hurd-i386
-- kamp:
-    - architecture: kfreebsd-amd64 kfreebsd-i386
 - mips-aql-01:
     - architecture: mips
 - mips-aql-02:
@@ -107,6 +95,20 @@
     - architecture: hppa
 - sibaris:
     - architecture: hppa
+
+- mozart:
+    - architecture: hurd-i386
+- bach:
+    - architecture: hurd-i386
+- ironforge:
+    - architecture: hurd-i386
+- rossini:
+    - architecture: hurd-i386
+- mahler:
+    - architecture: hurd-i386
+
+- kamp:
+    - architecture: kfreebsd-amd64 kfreebsd-i386
 
 - iridium:
     - architecture: ia64
