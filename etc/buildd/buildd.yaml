@@ -28,6 +28,10 @@
     - architecture: arm64 armhf
 - arm-ubc-04:
     - architecture: armel armhf
+- arm-ubc-05:
+    - architecture: armel armhf
+- arm-ubc-06:
+    - architecture: armel armhf
 - mips-aql-01:
     - architecture: mips
 - mips-aql-02:
