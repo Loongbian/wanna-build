@@ -88,6 +88,8 @@
     - architecture: all
 - x86-csail-02:
     - architecture: all
+- x86-grnet-02:
+    - architecture: all
 
 
 #
