@@ -84,8 +84,6 @@
     - architecture: amd64 i386
 - x86-ubc-01:
     - architecture: amd64 i386
-- x86-bm-01:
-    - architecture: all
 - x86-csail-02:
     - architecture: all
 - x86-grnet-02:
