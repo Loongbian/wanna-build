@@ -2,8 +2,6 @@
 # buildds for the main archive
 #
 
-- binet:
-    - architecture: amd64 i386
 - arnold:
     - architecture: armel armhf
 - antheil:
