@@ -57,6 +57,7 @@ debian)
 	;;
 debian-ports)
 	USER=buildd.debian.org
+	RSYNC_OPTIONS="$RSYNC_OPTIONS --exclude=**/*.gz"
 	$RSYNC --password-file "$PASSWORD_FILE" $RSYNC_OPTIONS $USER@ports-master.debian.org::debian-ports/dists/ "$TARGET/archive"
 	$RSYNC --password-file "$PASSWORD_BASE/$1-buildd.rsync-password" $RSYNC_OPTIONS $USER@ports-master.debian.org::debian-ports-buildd-dists/ "$TARGET/debian-ports-buildd-dists/"
 	;;
