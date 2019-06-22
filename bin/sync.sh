@@ -20,7 +20,7 @@ PASSWORD_FILE="$PASSWORD_BASE/$1.rsync-password"
 
 RSYNC_OPTIONS="--delete --delete-excluded -av"
 
-MIRROR_EXCLUDES="--exclude=**/*.changes --exclude=**/installer-* --exclude=**/Packages.diff --exclude=**/Sources.diff --exclude=ChangeLog --exclude=**/Contents-* --exclude=**/Translation-* --exclude=**/*.bz2 --exclude=Packages --exclude=Sources --exclude=**/*.new" # the latter two because we only accept gziped files
+MIRROR_EXCLUDES="--exclude=**/*.changes --exclude=**/installer-* --exclude=**/Packages.diff --exclude=**/Sources.diff --exclude=ChangeLog --exclude=**/Contents-* --exclude=**/Translation-* --exclude=**/*.bz2 --exclude=Packages --exclude=Sources --exclude=**/*.new" # the latter two because we only accept .gz or .xz files
 MIRROR_OPTIONS="$MIRROR_EXCLUDES $RSYNC_OPTIONS"
 
 export RSYNC_SSL_METHOD=socat
