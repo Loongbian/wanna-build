@@ -18,7 +18,7 @@ TARGET="$TARGET_BASE/$1"
 PASSWORD_BASE=/srv/wanna-build/etc
 PASSWORD_FILE="$PASSWORD_BASE/$1.rsync-password"
 
-RSYNC_OPTIONS="--delete --delete-excluded -av --exclude=**/*.changes --exclude=**/installer-* --exclude=**/Packages.diff --exclude=**/Sources.diff --exclude=ChangeLog --exclude=**/Contents-* --exclude=**/Translation-* --exclude=**/*.bz2 --exclude=Packages --exclude=Sources --exclude=**/*.new" # the latter two because we only accept .gz or .xz files
+RSYNC_OPTIONS="--delete --delete-excluded -av --exclude=**/*.changes --exclude=**/installer-* --exclude=**/Packages.diff --exclude=**/Sources.diff --exclude=ChangeLog* --exclude=**/Contents-* --exclude=**/i18n --exclude=**/dep11 --exclude=**/*.bz2 --exclude=Packages --exclude=Sources --exclude=**/*.new" # the latter two because we only accept .gz or .xz files
 
 export RSYNC_SSL_METHOD=socat
 export RSYNC_SSL_CAPATH=/etc/ssl/ca-debian
