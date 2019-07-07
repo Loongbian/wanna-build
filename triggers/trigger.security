@@ -44,10 +44,11 @@ main() {
     # Fetch the most recent Packages and Sources files.
     sync.sh $ARCHIVE nolock
 
-    SOURCES="${ARCHIVE_BASE}/archive/${SUITE}/updates/{main,contrib}/source/Sources.gz"
-    SOURCES="${SOURCES} ${ARCHIVE_BASE}/debian-security-buildd-dists/buildd-${SUITE}/updates/{main,contrib}/source/Sources.gz"
-    PACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/updates/{main,contrib}/binary-%ARCH%/Packages.gz"
-    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-security-buildd-dists/buildd-${SUITE}/updates/{main,contrib}/binary-%ARCH%/Packages.gz"
+    EXT="`get_index_extension ${SUITE}`"
+    SOURCES="${ARCHIVE_BASE}/archive/${SUITE}/updates/{main,contrib}/source/Sources.${EXT}"
+    SOURCES="${SOURCES} ${ARCHIVE_BASE}/debian-security-buildd-dists/buildd-${SUITE}/updates/{main,contrib}/source/Sources.${EXT}"
+    PACKAGES="${ARCHIVE_BASE}/archive/${SUITE}/updates/{main,contrib}/binary-%ARCH%/Packages.${EXT}"
+    PACKAGES="${PACKAGES} ${ARCHIVE_BASE}/debian-security-buildd-dists/buildd-${SUITE}/updates/{main,contrib}/binary-%ARCH%/Packages.${EXT}"
     trigger_wb_update "${SUITE}" "`get_architectures ${SUITE}-security`" "$SOURCES" "$PACKAGES" "${SUITE}-security"
 
     cleanup
