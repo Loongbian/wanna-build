@@ -165,6 +165,8 @@
 - tsukuyomi:
     - architecture: ppc64
 
+- blaauw:
+    - architecture: ppc64 powerpc
 - kapitsa:
     - architecture: ppc64 powerpc
 
