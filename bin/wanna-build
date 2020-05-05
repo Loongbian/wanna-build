@@ -24,11 +24,14 @@ use warnings;
 use 5.010;
 
 package conf;
+use File::Basename qw(dirname);
+use Cwd 'abs_path';
 
 use vars qw< $wbdir $mailprog $buildd_domain $pg_service $pg_priv_service >;
 # defaults
 BEGIN {
-	$wbdir = "/srv/wanna-build";
+	my $scriptpath = abs_path(__FILE__);
+	$wbdir = abs_path(dirname($scriptpath)."/../");
 }
 $mailprog ||= "/usr/sbin/sendmail";
 require "$conf::wbdir/etc/wanna-build.conf";
