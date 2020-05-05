@@ -23,24 +23,27 @@ use strict;
 use warnings;
 use 5.010;
 
-die "wanna-build disabled" if -f "/srv/wanna-build/NO-WANNA-BUILD";
-
 package conf;
 
-use vars qw< $mailprog $buildd_domain $pg_service $pg_priv_service >;
+use vars qw< $wbdir $mailprog $buildd_domain $pg_service $pg_priv_service >;
 # defaults
+BEGIN {
+	$wbdir = "/srv/wanna-build";
+}
 $mailprog ||= "/usr/sbin/sendmail";
-require "/srv/wanna-build/etc/wanna-build.conf";
+require "$conf::wbdir/etc/wanna-build.conf";
 die "mailprog binary $conf::mailprog does not exist or isn't executable\n"
         if !-x $conf::mailprog;
 package main;
+
+die "wanna-build disabled" if -f "$conf::wbdir/NO-WANNA-BUILD";
 
 use POSIX;
 use FileHandle;
 use File::Copy;
 use DBI;
 use Getopt::Long qw (GetOptionsFromString :config gnu_getopt );
-use lib '/srv/wanna-build/lib';
+use lib "$conf::wbdir/lib";
 #use lib 'lib';
 use WannaBuild;
 use YAML::Tiny;
@@ -82,7 +85,7 @@ our $defaultapi = undef;
 our $recorduser = undef;
 
 # global vars
-$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin:/srv/wanna-build/bin/";
+$ENV{'PATH'} = "/bin:/usr/bin:/usr/local/bin:$conf::wbdir/bin/";
 $ENV{'LC_ALL'} = 'C';
 $verbose = 0;
 $mail_logs = "";
@@ -232,7 +235,7 @@ if ($ARGV[0] && $ARGV[0] eq '--ssh-wrapper') {
     die ("no SSH_ORIGINAL_COMMAND") unless exists $ENV{'SSH_ORIGINAL_COMMAND'};
     GetOptions(@sshwrapperoptions) or usage();
     $#ARGV == 0 or die("need exactly one host name");
-    my $hosts = YAML::XS::LoadFile( '/srv/wanna-build/etc/buildd/buildd.yaml' );
+    my $hosts = YAML::XS::LoadFile( "$conf::wbdir/etc/buildd/buildd.yaml" );
     my ($hostyaml, $defaultyaml);
     foreach my $host (@$hosts) {
         $hostyaml = $host->{$ARGV[0]} if (keys %$host)[0] eq $ARGV[0];
@@ -399,7 +402,7 @@ if (!$fail_reason) {
 }
 
 my $yamlmap = ();
-my $yamldir = "/srv/wanna-build/etc/yaml";
+my $yamldir = "$conf::wbdir/etc/yaml";
 my @files = ('wanna-build.yaml');
 if ((getpwuid($>))[7]) { push (@files, ((getpwuid($>))[7])."/.wanna-build.yaml"); }
 if ($user && $user =~ /(buildd.*)-/) { push (@files, "$1.yaml") };
