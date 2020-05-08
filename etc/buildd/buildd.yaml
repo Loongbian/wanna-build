@@ -2,8 +2,6 @@
 # buildds for the main archive
 #
 
-- arnold:
-    - architecture: armel armhf
 - antheil:
     - architecture: armel armhf
 - arm-arm-01:
