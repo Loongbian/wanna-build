@@ -6,8 +6,6 @@
     - architecture: armel armhf
 - arm-arm-01:
     - architecture: arm64 armhf
-- arm-arm-02:
-    - architecture: arm64 armhf
 - arm-arm-03:
     - architecture: arm64 armhf
 - arm-arm-04:
