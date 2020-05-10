@@ -14,6 +14,8 @@
     - architecture: arm64 armhf
 - arm-conova-02:
     - architecture: arm64 armhf
+- arm-conova-03:
+    - architecture: armel armhf
 - arm-ubc-01:
     - architecture: arm64 armhf
 - arm-ubc-02:
