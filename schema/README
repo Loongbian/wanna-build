@@ -51,9 +51,8 @@ Architecture specific material
 ==============================
 
 0) $ cd /srv/wanna-build/schema/
-1) Edit arch-tables.sh and set ARCHS as you wish.
-2) ./arches-tables.sh
-3) $ psql -d wannadb -f arches-tables.sql
+1) for every ARCH you want to add, run
+   ./arches-tables.sh $ARCH | psql -d wannadb
 
 IMPORTANT: Note that arches-tables.in is maintained on a best effort basis
 and can be outdated from time to time. If you notice an issue, please feel
