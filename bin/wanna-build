@@ -1522,10 +1522,10 @@ sub export_db {
 		die "Can't open export $file: $!\n";
 
         my $db = get_all_source_info();
-        foreach $name (keys %$db) {
+        foreach $name (sort keys %$db) {
 		next if $name =~ /^_/;
 		my $pkg = $db->{$name};
-		foreach $key (keys %{$pkg}) {
+		foreach $key (sort keys %{$pkg}) {
 			my $val = $pkg->{$key};
 			next if !defined($val);
 			$val =~ s/\n*$//;
