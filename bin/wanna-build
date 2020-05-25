@@ -2167,14 +2167,14 @@ sub get_all_source_info {
 sub show_distribution_architectures {
     my $args = shift;
     if (defined($args->{suite})) {
-        foreach my $architecture (keys %{$distribution_architectures{$args->{suite}}}) {
+        foreach my $architecture (sort keys %{$distribution_architectures{$args->{suite}}}) {
             print $architecture." ";
         }
         print "\n";
     } else {
-        foreach my $distribution (keys %distribution_architectures) {
+        foreach my $distribution (sort keys %distribution_architectures) {
             print $distribution.':';
-            foreach my $architecture (keys %{$distribution_architectures{$distribution}}) {
+            foreach my $architecture (sort keys %{$distribution_architectures{$distribution}}) {
                 print " ".$architecture;
             }
             print "\n";
@@ -2183,7 +2183,7 @@ sub show_distribution_architectures {
 }
 
 sub show_distribution_aliases {
-	foreach my $alias (keys %distribution_aliases) {
+	foreach my $alias (sort keys %distribution_aliases) {
 		print $alias.': '.$distribution_aliases{$alias}."\n";
 	}
 }
