@@ -30,3 +30,5 @@ PATH=/bin:/usr/bin:/usr/local/bin:/srv/wanna-build/bin:/srv/buildd.debian.org/bi
 2 0 * * *	/srv/buildd.debian.org/bin/gen_srcbin_assoc.py > /srv/buildd.debian.org/etc/binsrc_assoc.php
 
 5 3 * * *	/srv/wanna-build/bin/do_stats-ports > /dev/null 2>&1
+
+* * * * *	/srv/buildd.debian.org/bin/git-sync-salsa
