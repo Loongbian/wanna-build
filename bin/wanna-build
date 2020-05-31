@@ -533,15 +533,15 @@ undef $distribution if $distribution eq 'any';
 
 		die "Unexpected operation mode $op_mode\n";
 	}
-	if ($recorduser) {
-		my $userinfo = get_user_info($user);
+	if ($recorduser and not $simulate) {
+		my $userinfo = get_user_info(name => $user);
 		if (!defined $userinfo)
 		{
-			add_user_info($user);
+			add_user_info(user => $user);
 		}
 		else
 		{
-			update_user_info($user);
+			update_user_info(user => $user);
 		}
 	}
 
@@ -2264,31 +2264,38 @@ sub del_source_info {
 }
 
 sub get_user_info {
-	my $name = shift;
+	my %options = @_;
+	my $name = $options{'name'};
+	my $dist = $options{'dist'} || $distribution;
+
 	my $user = $dbh->selectrow_hashref('SELECT * FROM ' . 
 		table_name('users', $arch) . ' WHERE username = ? AND distribution = ?',
-		undef, $name, $distribution);
+		undef, $name, $dist);
 	return $user;
 }
 
 sub update_user_info {
-        return if $simulate;
-	my $user = shift;
+	my %options = @_;
+	my $user = $options{'user'};
+	my $dist = $options{'dist'} || $distribution;
+
 	$dbh->do('UPDATE ' . table_name('users', $arch) .
 			' SET last_seen = now() WHERE username = ?' .
 			' AND distribution = ?',
-		undef, $user, $distribution)
+		undef, $user, $dist)
 		or die $dbh->errstr;
 }
 
 
 sub add_user_info {
-        return if $simulate;
-	my $user = shift;
+	my %options = @_;
+	my $user = $options{'user'};
+	my $dist = $options{'dist'} || $distribution;
+
 	$dbh->do('INSERT INTO ' . table_name('users', $arch) .
 			' (username, distribution, last_seen)' .
 			' values (?, ?, now())',
-		undef, $user, $distribution)
+		undef, $user, $dist)
 		or die $dbh->errstr;
 }
 
