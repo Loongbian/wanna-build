@@ -1,6 +1,20 @@
 ---
 priority:
     keys:
+        distribution:
+            bullseye-security: 400
+            buster-security: 400
+            stretch-security: 400
+            jessie-security: 300
+            buster: 200
+            stretch: 200
+            bullseye: 100
+            sid: 0
+            experimental: -100
+            bullseye-backports: -200
+            buster-backports: -200
+            stretch-backports: -200
+            stretch-backports-sloppy: -200
         priority: 
             required: 50
             important: 40
