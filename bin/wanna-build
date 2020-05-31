@@ -534,14 +534,28 @@ undef $distribution if $distribution eq 'any';
 		die "Unexpected operation mode $op_mode\n";
 	}
 	if ($recorduser and not $simulate) {
-		my $userinfo = get_user_info(name => $user);
-		if (!defined $userinfo)
-		{
-			add_user_info(user => $user);
+		my @distributions;
+
+		if (defined($distribution)) {
+			push @distributions, ($distribution);
+		} else {
+			foreach my $dist (keys %distribution_architectures) {
+				if (exists($distribution_architectures{$dist}{$arch})) {
+					push @distributions, ($dist);
+				}
+			}
 		}
-		else
-		{
-			update_user_info(user => $user);
+
+		foreach my $dist (@distributions) {
+			my $userinfo = get_user_info(name => $user, dist => $dist);
+			if (!defined $userinfo)
+			{
+				add_user_info(user => $user, dist => $dist);
+			}
+			else
+			{
+				update_user_info(user => $user, dist => $dist);
+			}
 		}
 	}
 
