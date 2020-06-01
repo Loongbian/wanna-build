@@ -208,8 +208,6 @@ my @wannabuildoptions = (
 
     'ssh-wrapper'       => \$sshwrapper,
     'recorduser'        => \$recorduser,
-
-    'whoami'                => \&_set_mode,
     );
 
 my @sshwrapperoptions = (
@@ -225,7 +223,6 @@ my $commands = {
     'info' => {'nopriv' => 1, },
     'distribution-architectures' => {'nopriv' => 1, 'nopkg' => 1, 'noarch' => 1,},
     'distribution-aliases' => {'nopriv' => 1, 'nopkg' => 1, 'noarch' => 1,},
-    'whoami' => {'nopriv' => 1, 'nopkg' => 1, 'noarch' => 1,},
     'export' => { 'nopkg' => 1},
 };
 
@@ -513,21 +510,6 @@ undef $distribution if $distribution eq 'any';
 		};
 		/^distribution-aliases/ && do {
 			show_distribution_aliases();
-			last SWITCH;
-		};
-		/^whoami/ && do {
-                        print "---\n";
-                        if (! $hostdefaults->{'host'} ) {
-                            print "- error: no entry; not using ssh-wrapper?\n";
-                            last SWITCH;
-                        }
-                        $hostdefaults->{'maintainer_name'} //= sprintf 'Debian Build Daemon (%s) <buildd-%s@%s>', $hostdefaults->{'host'}, $hostdefaults->{'host'}, $conf::buildd_domain;
-                        $hostdefaults->{'fqdn'} //= $hostdefaults->{'host'}.".debian.org";
-                        $hostdefaults->{'mailfrom'} //= sprintf 'buildd on %s <buildd@%s>', $hostdefaults->{'host'}, $hostdefaults->{'fqdn'};
-                        my $map = { 'db-user' => 'wanna_build_db_user',  'maintainer_name' => 'maintainer_name', 'mailfrom' => 'mailfrom', };
-                        foreach my $k (keys %$map) {
-                            printf "- %s: %s\n", $map->{$k}, $hostdefaults->{$k} if $hostdefaults->{$k};
-                        }
 			last SWITCH;
 		};
 
