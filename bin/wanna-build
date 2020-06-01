@@ -239,7 +239,7 @@ if ($ARGV[0] && $ARGV[0] eq '--ssh-wrapper') {
     die ("no SSH_ORIGINAL_COMMAND") unless exists $ENV{'SSH_ORIGINAL_COMMAND'};
     GetOptions(@sshwrapperoptions) or usage();
     $#ARGV == 0 or die("need exactly one host name");
-    my $hosts = YAML::XS::LoadFile( "$conf::wbdir/etc/buildd/buildd.yaml" );
+    my $hosts = YAML::XS::LoadFile( "$conf::wbdir/etc/yaml/buildd.yaml" );
     my ($hostyaml, $defaultyaml);
     foreach my $host (@$hosts) {
         $hostyaml = $host->{$ARGV[0]} if (keys %$host)[0] eq $ARGV[0];
