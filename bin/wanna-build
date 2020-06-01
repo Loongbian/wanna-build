@@ -409,7 +409,6 @@ my $yamlmap = ();
 my $yamldir = "$conf::wbdir/etc/yaml";
 my @files = ('wanna-build.yaml');
 if ((getpwuid($>))[7]) { push (@files, ((getpwuid($>))[7])."/.wanna-build.yaml"); }
-if ($user && $user =~ /(buildd.*)-/) { push (@files, "$1.yaml") };
 if ($user) { push ( @files, "$user.yaml"); }
 foreach my $file (@files) {
         my $cfile = File::Spec->rel2abs( $file, $yamldir );
