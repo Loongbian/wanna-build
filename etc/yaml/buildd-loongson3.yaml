@@ -1,0 +1,34 @@
+restrict:
+    noautobuild:
+        - austin:             Loongson 3 issues
+        - botch:              Testsuite timeout
+        - casacore:           Loongson 3 FPU issues
+        - ceres-solver:       Loongson 3 FPU issues
+        - cmark-gfm:          Loongson 3 FPU issues
+        - cyvcf2:             Loongson 3 FPU issues
+        - devscripts:         Testsuite timeout
+        - dolfin:             Testsuite timeout
+        - gegl:               Loongson 3 FPU issues
+        - git:                Loongson 3 FPU issues
+        - gnutls28:           Loongson 3 issues
+        - graphicsmagick:     Loongson 3 FPU issues
+        - guile-2.2:          Build timeout
+        - guile-3.0:          Build timeout
+        - igraph:             Loongson 3 FPU issues
+        - librsb:             Loongson 3 FPU issues
+        - librsvg:            Loongson 3 FPU issues
+        - libuv1:             Testsuite timeout
+        - nocache:            Build timeout
+        - nodejs:             Loongson 3 FPU issues
+        - notary:             Build timeout
+        - octave-ltfat:       Loongson 3 FPU issues
+        - openjfx:            Loongson 3 issues
+        - openscad:           Loongson 3 FPU issues
+        - polymake:           Loongson 3 FPU issues
+        - prodigal:           Build timeout
+        - pyfftw:             Loongson 3 FPU issues
+        - pypy:               Build timeout
+        - redis:              Loongson unaligned access issues
+        - rust-num-traits:    Loongson 3 FPU issues
+        - rsyslog:            Loongson 3 issues
+        - snapd-glib:         Testsuite timeout
