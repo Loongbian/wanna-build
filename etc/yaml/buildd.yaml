@@ -250,6 +250,8 @@
     - architecture: sparc64
 - landau:
     - architecture: sparc64
+- nvg5120:
+    - architecture: sparc64
 - sompek:
     - architecture: sparc64
 - osaka:
