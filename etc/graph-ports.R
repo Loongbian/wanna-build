@@ -19,7 +19,7 @@ readdata <- function (file,start) {
 
 plotwb <- function (file,title,p,linept=85,height=7.5,width=10,pch=1:18) {
 	bitmap(file=file,type="png16m",width=width,height=height,res=64)
-	layout(matrix(c(1,1,2,2),2,2),widths=c(0.85,0.15))
+	layout(matrix(c(1,1,2,2),2,2),widths=c(0.80,0.20))
 	par(mar=c(5,4,4,2)+0.1) 
 	par(lab=c(10,10,7))
 	plot(p,type="o",plot.type="single",col=1:18,pch=pch,xlab="date",
@@ -29,7 +29,7 @@ plotwb <- function (file,title,p,linept=85,height=7.5,width=10,pch=1:18) {
 	axis(4)
 	plot.new()
 	par(plt=c(0,1,0,1))        
-	legend(-1.2,1, arch, col=1:18, pch=pch, lwd=2, bg='gray90', cex=1.5)  
+	legend('topright', arch, col=1:18, pch=pch, lwd=2, bg='gray90', cex=1.5)
 }
 v <- readdata("/srv/wanna-build/etc/graph-ports-data",1)
 plotwb("/srv/buildd.debian.org/web/stats/graph-ports.png","What percent is built for each architecture",v,85,7.5,10,".")
