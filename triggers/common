@@ -32,10 +32,7 @@ get_architectures() {
 # Get the compression format used in a given suite
 get_index_extension() {
     local SUITE="$1"
-    if [ "$SUITE" = "jessie" ]; then echo ".gz"
-    else
-        echo ".xz"
-    fi
+    echo ".xz"
 }
 
 get_pas_file() {

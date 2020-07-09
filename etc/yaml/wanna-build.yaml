@@ -5,7 +5,6 @@ priority:
             bullseye-security: 400
             buster-security: 400
             stretch-security: 400
-            jessie-security: 300
             buster: 200
             stretch: 200
             bullseye: 100
