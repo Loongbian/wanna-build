@@ -1,80 +1,104 @@
-#! /usr/bin/python
+#!/usr/bin/python3
 
+import re
+import subprocess
+import sys
+import os.path
 
-import sys, os.path, subprocess
-#from debian_bundle import deb822
 import apt_pkg
 
 
-def check_source(ok, srcs, fw):
-    ret=[]
+def matches_oklist(srcoklist, src):
+    for expr in srcoklist:
+        if expr.match(src):
+            return True
+    return False
+
+
+def check_source(srcoklist, srcs, fw):
+    ret = []
     for f in srcs:
-        #f = open(f, 'r')
         if f.endswith('gz'):
-            f = subprocess.Popen("zcat %s" % (f), shell=True, stdout=subprocess.PIPE).stdout
+            f = subprocess.Popen('zcat %s' % (f), shell=True, stdout=subprocess.PIPE).stdout
         elif f.endswith('xz'):
-            f = subprocess.Popen("xzcat %s" % (f), shell=True, stdout=subprocess.PIPE).stdout
+            f = subprocess.Popen('xzcat %s' % (f), shell=True, stdout=subprocess.PIPE).stdout
         else:
             f = open(f, 'r')
         pkg = apt_pkg.TagFile(f)
         while pkg.step():
-            if not pkg.section.get('Package'): continue
-            if pkg.section.get('Section','').startswith('non-free'):
-                if pkg.section.get('Autobuild') != 'yes': continue
-                if pkg.section['Package'] not in ok: continue
-            ret += [pkg.section['Package']]
+            if not pkg.section.get('Package'):
+                continue
+            if pkg.section.get('Section', '').startswith('non-free'):
+                if pkg.section.get('Autobuild') != 'yes':
+                    continue
+                if not matches_oklist(srcoklist, pkg.section['Package']):
+                    continue
+            ret.append(pkg.section['Package'])
             fw.write(str(pkg.section))
-            fw.write("\n")
+            fw.write('\n')
         f.close()
-    fw.close()
     return ret
+
 
 def check_binary(ok, bins, fw):
     for f in bins:
         if f.endswith('gz'):
-            f = subprocess.Popen("zcat %s" % (f), shell=True, stdout=subprocess.PIPE).stdout
+            f = subprocess.Popen(f'zcat {f}', shell=True, stdout=subprocess.PIPE).stdout
         elif f.endswith('xz'):
-            f = subprocess.Popen("xzcat %s" % (f), shell=True, stdout=subprocess.PIPE).stdout
+            f = subprocess.Popen(f'xzcat {f}', shell=True, stdout=subprocess.PIPE).stdout
         else:
             f = open(f, 'r')
         pkg = apt_pkg.TagFile(f)
         while pkg.step():
-            if pkg.section.get('Source', pkg.section.get('Package')).split(" ")[0] not in ok: continue
+            if pkg.section.get('Source', pkg.section.get('Package')).split(' ')[0] not in ok:
+                continue
             fw.write(str(pkg.section))
-            fw.write("\n")
+            fw.write('\n')
         f.close()
-    fw.close()
 
-def outfile(name, file):
-    #return open(dir + "/" + os.path.basename(file), "w")
-    #return open(file + name, "w")
-    if file.endswith(name): return open(file[:-len(name)], "w")
 
-def replarch(arch, pkgs):
-    return [ x.replace('%ARCH%', arch) for x in pkgs ]
+def outfile(name, fn):
+    if fn.endswith(name):
+        return open(fn[:-len(name)], 'w')
+
+
+def replace_arch(arch, pkgs):
+    return [x.replace('%ARCH%', arch) for x in pkgs]
+
 
 def main():
     # call me:
-    # /srv/wanna-build/etc/non-free-include-list "arch1 arch2" write-sources write-packages Sources* . Packages*
+    # /srv/wanna-build/etc/non-free-include-list 'arch1 arch2' write-sources write-packages Sources* . Packages*
     if len(sys.argv) <= 4:
-        print "Error - too few args"
-        return
+        print('Error - too few args')
+        return 1
 
-    oklist = [ x[:-1].split(' ')[0] for x in open(sys.argv[1]) ]
-    #outsrcs = open(sys.argv[3], "w")
-    #outpkgs = open(sys
-    rem = sys.argv[5:]
-    if '.' not in rem:
-        print "need both Sources and Packages"
-        return
-    src = rem[:rem.index('.')]
-    bin = rem[rem.index('.')+1:]
+    with open(sys.argv[1]) as allowlist:
+        srcoklist = []
+        for line in allowlist:
+            if line.startswith('#'):
+                continue
+            entry = line.rstrip().split(' ')[0]
+            if not entry.startswith('^'):  # use ^ to flag regexs
+                entry = f'^{re.escape(entry)}$'
+            srcoklist.append(re.compile(entry))
+        print(srcoklist)
+    remainder = sys.argv[5:]
+    if '.' not in remainder:
+        print('need both Sources and Packages')
+        return 1
+    src = remainder[:remainder.index('.')]
+    bin = remainder[remainder.index('.')+1:]
     if not src or not bin:
-        print "need non-empty Sources and Packages"
-        return
-    okpkgs = check_source(oklist, src, open(sys.argv[3], "w"))
-    for arch in sys.argv[2].split(" "):
-        check_binary(okpkgs, replarch(arch, bin), open(replarch(arch, [sys.argv[4]])[0], "w"))
+        print('need non-empty Sources and Packages')
+        return 1
+    with open(sys.argv[3], 'w') as sources_outfp:
+        okpkgs = check_source(srcoklist, src, sources_outfp)
+    for arch in sys.argv[2].split(' '):
+        with open(replace_arch(arch, [sys.argv[4]])[0], 'w') as bin_outfp:
+            check_binary(okpkgs, replace_arch(arch, bin), bin_outfp)
+    return 0
+
 
 if __name__ == '__main__':
-        main()
+    sys.exit(main())
