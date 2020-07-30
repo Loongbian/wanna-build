@@ -1,14 +1,18 @@
-arch <- c("alpha", "hppa", "ia64", "m68k", "ppc64", "riscv64", "sh4", "sparc64", "x32")
-palette(c("yellow", "violet", "springgreen4", "blue", "green", "thistle4", "black", "orange", "turquoise"))
+arch <- c("alpha", "hppa", "hurd-i386", "ia64", "kfreebsd-amd64", "kfreebsd-i386", "m68k", "powerpc", "ppc64", "riscv64", "sh4", "sparc64", "x32")
+palette(c("yellow", "violet", "purple", "springgreen4", "red", "magenta", "blue", "steelblue2", "green", "thistle4", "black", "orange", "turquoise"))
 
 readdata <- function (file,start) {
 	t <- read.table(file,row.names=1,header=FALSE,
-	sep=",",col.names=c("date","alpha","at","hppa","ht","ia64","it","m68k","m6t","ppc64","p64","rv64","rt","sh4","sht","sparc64","spt","x32","xt"))
+	sep=",",col.names=c("date","alpha","at","hppa","ht","ia64","it","m68k","m6t","ppc64","p64","rv64","rt","sh4","sht","sparc64","spt","x32","xt","hurd-i386","hit","kfreebsd-amd64","kfreebsd-amd64-t","kfreebsd-i386","kfreebsd-i386-t","powerpc","pt"))
 	ts(as.matrix(data.frame(
 	t[1]/t[2]*100, #alpha
 	t[3]/t[4]*100, #hppa
+	t[19]/t[20]*100, #hurd-i386
 	t[5]/t[6]*100, #ia64
+	t[21]/t[22]*100, #kfreebsd-amd64
+	t[23]/t[24]*100, #kfreebsd-i386
 	t[7]/t[8]*100, #m68k
+	t[25]/t[26]*100, #powerpc
 	t[9]/t[10]*100, #ppc64
 	t[11]/t[12]*100, #riscv64
 	t[13]/t[14]*100, #sh4
@@ -19,7 +23,7 @@ readdata <- function (file,start) {
 
 plotwb <- function (file,title,p,linept=85,height=7.5,width=10,pch=1:18) {
 	bitmap(file=file,type="png16m",width=width,height=height,res=64)
-	layout(matrix(c(1,1,2,2),2,2),widths=c(0.80,0.20))
+	layout(matrix(c(1,1,2,2),2,2),widths=c(0.715,0.285))
 	par(mar=c(5,4,4,2)+0.1) 
 	par(lab=c(10,10,7))
 	plot(p,type="o",plot.type="single",col=1:18,pch=pch,xlab="date",
