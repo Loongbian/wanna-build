@@ -1,10 +1,9 @@
-arch <- c("amd64", "arm64", "armel", "armhf", "hurd-i386", "i386",
-	"kfreebsd-amd64", "kfreebsd-i386", "mips", "mipsel", "mips64el", "powerpc",
+arch <- c("amd64", "arm64", "armel", "armhf", "i386",
+	"mips", "mipsel", "mips64el",
 	"ppc64el", "s390x", "all")
-palette(c("black", "turquoise", "red", "OrangeRed", "green3", "cyan", 
-	"blue", "yellow", "magenta",
-	"violetred2","thistle4", "steelblue2", "springgreen4",
-	"salmon", "purple"))
+palette(c("black", "turquoise", "red", "OrangeRed", "cyan",
+	"magenta", "violetred2","thistle4",
+	"springgreen4",	"salmon", "purple"))
 
 readdata <- function (file,start) {
 	t <- read.table(file,row.names=1,header=FALSE,
@@ -19,14 +18,10 @@ readdata <- function (file,start) {
 	t[37]/t[38]*100, #arm64
 	t[27]/t[28]*100, #armel
 	t[33]/t[34]*100, #armhf
-	t[7]/t[8]*100, #hurd-i386
 	t[9]/t[10]*100, #i386
-	t[29]/t[30]*100, #kfreebsd-amd64
-	t[31]/t[32]*100, #kfreebsd-i386
 	t[15]/t[16]*100, #mips
 	t[17]/t[18]*100, #mipsel
 	t[43]/t[44]*100, #mips64el
-	t[19]/t[20]*100, #powerpc
 	t[39]/t[40]*100, #ppc64el
 	t[35]/t[36]*100, #s390x
 	t[41]/t[42]*100 #all
@@ -35,7 +30,7 @@ readdata <- function (file,start) {
 
 plotwb <- function (file,title,p,linept=85,height=7.5,width=10,pch=1:18) {
 	bitmap(file=file,type="png16m",width=width,height=height,res=64)
-	layout(matrix(c(1,1,2,2),2,2),widths=c(0.715,0.285))
+	layout(matrix(c(1,1,2,2),2,2),widths=c(0.75,0.25))
 	par(mar=c(5,4,4,2)+0.1) 
 	par(lab=c(10,10,7))
 	plot(p,type="o",plot.type="single",col=1:18,pch=pch,xlab="date",
