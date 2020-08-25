@@ -82,7 +82,6 @@ def main():
             if not entry.startswith('^'):  # use ^ to flag regexs
                 entry = f'^{re.escape(entry)}$'
             srcoklist.append(re.compile(entry))
-        print(srcoklist)
     remainder = sys.argv[5:]
     if '.' not in remainder:
         print('need both Sources and Packages')
